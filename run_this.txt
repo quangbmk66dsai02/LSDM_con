@@ -1,0 +1,4 @@
+python cm_train.py --training_mode consistency_training --target_ema_mode adaptive --start_ema 0.95 --scale_mode progressive --start_scales 2 --end_scales 200 --total_training_steps 800000 --loss_norm lpips --lr_anneal_steps 0 --class_cond True  --use_scale_shift_norm True --dropout 0.0 --teacher_dropout 0.1 --ema_rate 0.999,0.9999,0.9999432189950708 --global_batch_size 1  --lr 0.0001 --resblock_updown True --schedule_sampler uniform --use_fp16 False --weight_decay 0.0 --weight_schedule uniform --data_dir datasets/Imagenet64_val
+
+
+Need data folder of protext from LSDM
