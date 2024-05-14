@@ -1,0 +1,3 @@
+Place a two seater sofa under me and next to the cabinet
+cabinet_0
+sofa_0

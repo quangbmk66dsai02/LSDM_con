@@ -1,0 +1,3 @@
+Place a cafe table among all sofas
+sofa_0 sofa_1 sofa_2 sofa_3 sofa_4
+table_0

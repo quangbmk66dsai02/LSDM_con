@@ -1,0 +1,3 @@
+Place an office chair to the right of me and next to the table and another chair
+table_0 table_1 chair_2 furniture_0
+chair_3

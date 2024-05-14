@@ -1,0 +1,3 @@
+Place a rectangle table in front of me and between two sofas
+sofa_0 sofa_1
+table_0

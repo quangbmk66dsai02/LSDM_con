@@ -1,0 +1,3 @@
+Place a single bed under me and next to the sofa
+sofa_0
+bed_0

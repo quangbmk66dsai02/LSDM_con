@@ -1,0 +1,3 @@
+Place a double bed under me and beside the chest of drawers
+chest_of_drawers_1
+bed_0

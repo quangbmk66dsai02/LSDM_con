@@ -1,0 +1,3 @@
+Place a table to the right of me and in front of the sofa and the chair
+sofa_0 chair_0 lighting_0 table_1
+table_0

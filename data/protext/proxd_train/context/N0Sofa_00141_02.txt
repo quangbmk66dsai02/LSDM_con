@@ -1,0 +1,3 @@
+Place a sofa stool under me
+sofa_1 sofa_2 table_0
+sofa_0

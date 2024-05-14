@@ -1,0 +1,3 @@
+Place an office chair behind me and next to the table
+table_0 shelving_0 tv_monitor_0
+chair_1

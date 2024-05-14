@@ -1,0 +1,3 @@
+Place a meeting table to the right of me and in front of the sofa and the chair
+sofa_0 chair_0 furniture_0 shelving_0 shelving_1 table_1 table_2
+table_0

@@ -1,0 +1,3 @@
+Place a meeting table right in front of me
+sofa_0
+table_0

@@ -1,0 +1,3 @@
+Place a file cabinet on my right side and on the table
+chair_0 table_0 tv_monitor_0
+shelving_1

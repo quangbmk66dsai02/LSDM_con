@@ -1,0 +1,3 @@
+Place an office chair on my left side and next to the table
+table_0 tv_monitor_0 chest_of_drawers_0
+chair_1

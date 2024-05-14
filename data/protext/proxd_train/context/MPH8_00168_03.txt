@@ -1,0 +1,3 @@
+Place a round table in front of me and between two chairs
+chair_0 chair_1
+table_1

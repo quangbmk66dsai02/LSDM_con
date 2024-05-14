@@ -1,0 +1,3 @@
+Place an accent table ahead of me and to the left of the stool
+stool_0 furniture_0 furniture_1 chair_0 chair_1 chair_2 chair_3 lighting_0
+table_0

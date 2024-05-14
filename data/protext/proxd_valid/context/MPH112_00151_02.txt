@@ -1,0 +1,3 @@
+Place a double bed to my left and between the chests of drawers
+chest_of_drawers_0 chest_of_drawers_1
+bed_0

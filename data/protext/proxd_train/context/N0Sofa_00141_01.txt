@@ -1,0 +1,3 @@
+Place a cafe table to the right of me and in front of the sofa
+sofa_0 sofa_2 sofa_3
+table_0

@@ -1,0 +1,3 @@
+Place a meeting table between me and the chair
+chair_3
+table_0

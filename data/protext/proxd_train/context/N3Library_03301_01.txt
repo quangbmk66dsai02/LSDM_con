@@ -1,0 +1,3 @@
+Place a meeting table next to me and next to the sofa
+sofa_0 chair_0 chair_1 lighting_0
+table_0

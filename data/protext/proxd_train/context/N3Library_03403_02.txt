@@ -1,0 +1,3 @@
+Place a two seater sofa in front of me and next to the table
+table_0 shelving_1 chair_0 chair_1
+sofa_0

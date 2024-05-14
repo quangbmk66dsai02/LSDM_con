@@ -1,0 +1,3 @@
+Place a dining chair under me
+seating_3 table_0 lighting_1
+seating_0

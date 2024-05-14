@@ -1,0 +1,3 @@
+Place a square table in the middle of two chairs
+seating_0 seating_3 lighting_1
+table_0

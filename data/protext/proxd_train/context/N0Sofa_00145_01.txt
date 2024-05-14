@@ -1,0 +1,3 @@
+Place a sofa stool between me and the table
+table_0 sofa_3
+sofa_2

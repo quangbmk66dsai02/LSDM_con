@@ -1,0 +1,3 @@
+Place a meeting table behind me and among the chairs
+chair_0 chair_2 chair_3
+table_0

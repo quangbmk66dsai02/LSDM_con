@@ -1,0 +1,3 @@
+Place an office chair in the middle of me and the table
+table_0 furniture_0 shelving_0 shelving_1 chair_0 chair_1 lighting_0
+chair_2

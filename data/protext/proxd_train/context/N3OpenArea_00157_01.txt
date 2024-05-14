@@ -1,0 +1,3 @@
+Place an accent chair to the left of me and next to another chair
+stool_0 chair_1 lighting_0
+chair_2

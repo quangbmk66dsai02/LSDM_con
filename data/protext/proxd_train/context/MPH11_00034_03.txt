@@ -1,0 +1,3 @@
+Place a side cabinet on my left side and next to the sofa
+sofa_0
+cabinet_0

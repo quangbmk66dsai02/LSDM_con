@@ -1,0 +1,3 @@
+Place a chest of drawers ahead of me
+bed_0
+chest_of_drawers_1

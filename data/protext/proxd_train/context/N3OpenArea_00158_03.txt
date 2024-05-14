@@ -1,0 +1,3 @@
+Place a recliner right on my left side
+chair_2 chair_3 table_0
+chair_1

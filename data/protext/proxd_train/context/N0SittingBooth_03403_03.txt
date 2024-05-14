@@ -1,0 +1,3 @@
+Place a dining chair behind me and next to the table
+seating_2 table_1 lighting_0
+seating_1

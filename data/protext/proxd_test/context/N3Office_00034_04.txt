@@ -1,0 +1,3 @@
+Place a desk in front of me
+chair_0 furniture_0
+table_1

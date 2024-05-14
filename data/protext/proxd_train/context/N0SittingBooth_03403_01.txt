@@ -1,0 +1,3 @@
+Place a square table between me and the chair
+seating_3 seating_1
+table_0
