@@ -52,6 +52,10 @@ class ScheduleSampler(ABC):
                  - timesteps: a tensor of timestep indices.
                  - weights: a tensor of weights to scale the resulting losses.
         """
+        print("entering scheduler sample ")
+        while True:
+            pass
+        
         w = self.weights()
         p = w / np.sum(w)
         indices_np = np.random.choice(len(p), size=(batch_size,), p=p)
