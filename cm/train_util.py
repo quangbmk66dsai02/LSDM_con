@@ -411,6 +411,11 @@ class CMTrainLoop(TrainLoop):
     def _update_target_ema(self):
         target_ema, scales = self.ema_scale_fn(self.global_step)
         with th.no_grad():
+            print("enter update target ema in train_util")
+            def count_parameters(model):
+                return sum(p.numel() for p in model.parameters() if p.requires_grad)
+            print("this is target model", count_parameters(self.target_model))
+            print("this is  model", count_parameters(self.model))
             update_ema(
                 self.target_model_master_params,
                 self.mp_trainer.master_params,
