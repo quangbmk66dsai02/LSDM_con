@@ -398,8 +398,8 @@ class CMTrainLoop(TrainLoop):
         took_step = self.mp_trainer.optimize(self.opt)
         if took_step:
             self._update_ema()
-            if self.target_model:
-                self._update_target_ema()
+            # if self.target_model:
+            #     self._update_target_ema()
             if self.training_mode == "progdist":
                 self.reset_training_for_progdist()
             self.step += 1
