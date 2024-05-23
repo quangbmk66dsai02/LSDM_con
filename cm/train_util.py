@@ -416,6 +416,10 @@ class CMTrainLoop(TrainLoop):
                 return sum(p.numel() for p in model.parameters() if p.requires_grad)
             print("this is target model", count_parameters(self.target_model))
             print("this is  model", count_parameters(self.model))
+            print("===================")
+            print(self.model)
+            print("=====================")
+            print(self.target_model)
             update_ema(
                 self.target_model_master_params,
                 self.mp_trainer.master_params,
