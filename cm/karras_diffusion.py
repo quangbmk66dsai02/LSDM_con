@@ -47,9 +47,10 @@ class KarrasDenoiser:
         self.sigma_min = sigma_min
         self.weight_schedule = weight_schedule
         self.distillation = distillation
-        self.loss_norm = loss_norm
-        if loss_norm == "lpips":
-            self.lpips_loss = LPIPS(replace_pooling=True, reduction="none")
+        # self.loss_norm = loss_norm
+        # if loss_norm == "lpips":
+        #     self.lpips_loss = LPIPS(replace_pooling=True, reduction="none")
+        self.loss_norm = "l2"
         self.rho = rho
         self.num_timesteps = 40
 
