@@ -215,7 +215,11 @@ class KarrasDenoiser:
             loss = mean_flat(diffs) * weights
         elif self.loss_norm == "l2":
             diffs = (distiller - distiller_target) ** 2
+            print("Device check")
+            print(f"{diffs.device}, {weights.device}")
+            diffs = diffs.to("cpu")
             loss = mean_flat(diffs) * weights
+        
         elif self.loss_norm == "l2-32":
             distiller = F.interpolate(distiller, size=32, mode="bilinear")
             distiller_target = F.interpolate(
