@@ -133,10 +133,10 @@ class KarrasDenoiser:
             return self.denoise(model, x, mask=mask, given_objs= given_objs, given_cats= given_cats,y =y, sigmas=t, **model_kwargs)[1]
 
         if target_model:
-
+            
             @th.no_grad()
             def target_denoise_fn(x, t):
-                return self.denoise(target_model, x, t, **model_kwargs)[1]
+                return self.denoise(model, x, mask=mask, given_objs= given_objs, given_cats= given_cats,y =y, sigmas=t, **model_kwargs)[1]
 
         else:
             raise NotImplementedError("Must have a target model")
