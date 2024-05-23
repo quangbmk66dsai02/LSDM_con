@@ -352,12 +352,17 @@ class KarrasDenoiser:
                 append_dims(x, x_t.ndim)
                 for x in self.get_scalings_for_boundary_condition(sigmas)
             ]
+
+        
         rescaled_t = 1000 * 0.25 * th.log(sigmas + 1e-44)
         rescaled_t_long = rescaled_t.to(th.long)
         # model(x, mask, self._scale_timesteps(t), given_objs, given_cats, y)
         print("this is rescaled t long", rescaled_t_long)
 
         model_output = model(c_in * x_t, mask, rescaled_t_long, given_objs, given_cats, y, **model_kwargs)
+
+        print("device check")
+        print(f"{c_out.device}, {model_output[1].device}, {c_skip.device}, {x_t.device} ")
         denoised = c_out * model_output[1] + c_skip * x_t
         print("finish denoised")
 
