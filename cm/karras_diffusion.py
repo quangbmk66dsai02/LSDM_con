@@ -217,7 +217,7 @@ class KarrasDenoiser:
             diffs = (distiller - distiller_target) ** 2
             print("Device check")
             print(f"{diffs.device}, {weights.device}")
-            diffs = weights.to("cuda")
+            weights = weights.to("cuda")
             loss = mean_flat(diffs) * weights
         
         elif self.loss_norm == "l2-32":
