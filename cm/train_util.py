@@ -453,12 +453,11 @@ class CMTrainLoop(TrainLoop):
     def forward_backward(self, batch, cond):
 
         print("this is batch", batch)
-        print("this is cond", cond)
         print("this target obj shape", batch[3].shape)
         self.mp_trainer.zero_grad()
         for i in range(0, batch[3].shape[0], self.microbatch):
             # micro = batch[i : i + self.microbatch].to(dist_util.dev())
-            micro = batch[i : i + self.microbatch]
+            micro = batch
 
             micro_cond = {
                 k: v[i : i + self.microbatch].to(dist_util.dev())
@@ -467,8 +466,13 @@ class CMTrainLoop(TrainLoop):
             last_batch = (i + self.microbatch) >= batch[3].shape[0]
             dev = dist_util.dev()
             print ("this is dev")
-            print("this is micro[3].shape[0]", micro[3].shape[0])
+            print("this is micro length", len(micro))
+            print("this is self.micro", self.microbatch)
+
+            print("this is micro_y", micro)
             t, weights = self.schedule_sampler.sample(micro[3].shape[0], dev)
+
+
 
             ema, num_scales = self.ema_scale_fn(self.global_step)
             if self.training_mode == "progdist":
