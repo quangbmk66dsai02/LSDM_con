@@ -361,6 +361,10 @@ class KarrasDenoiser:
 
         model_output = model(c_in * x_t, mask, rescaled_t_long, given_objs, given_cats, y, **model_kwargs)
 
+        c_in.to("cuda")
+        c_skip.to("cuda")
+        x_t.to("cuda")
+
         print("device check")
         print(f"{c_out.device}, {model_output[1].device}, {c_skip.device}, {x_t.device} ")
         denoised = c_out * model_output[1] + c_skip * x_t

@@ -469,7 +469,6 @@ class CMTrainLoop(TrainLoop):
             print("this is micro length", len(micro))
             print("this is self.micro", self.microbatch)
 
-            print("this is micro_y", micro)
             t, weights = self.schedule_sampler.sample(micro[3].shape[0], dev)
 
 
