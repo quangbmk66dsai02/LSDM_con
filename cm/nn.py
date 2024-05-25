@@ -54,20 +54,26 @@ def avg_pool_nd(dims, *args, **kwargs):
     raise ValueError(f"unsupported dimensions: {dims}")
 
 
-def update_ema(target_params, source_params, rate=0.99):
+def update_ema(target_model, source_model, rate=0.99):
     """
     Update target parameters to be closer to those of source parameters using
     an exponential moving average.
 
-    :param target_params: the target parameter sequence.
-    :param source_params: the source parameter sequence.
+    :param target_model: the target model whose parameters are to be updated.
+    :param source_model: the source model whose parameters are used as reference.
     :param rate: the EMA rate (closer to 1 means slower).
     """
+    target_params = dict(target_model.named_parameters())
+    source_params = dict(source_model.named_parameters())
 
-    for targ, src in zip(target_params, source_params):
-        if targ.shape != src.shape:
-            raise ValueError(f"Shape mismatch: target shape {targ.shape}, source shape {src.shape}")
-        targ.detach().mul_(rate).add_(src, alpha=1 - rate)
+    for name, targ in target_params.items():
+        if name in source_params:
+            src = source_params[name]
+            if targ.shape != src.shape:
+                raise ValueError(f"Shape mismatch at {name}: target shape {targ.shape}, source shape {src.shape}")
+            targ.data.mul_(rate).add_(src.data, alpha=1 - rate)
+        else:
+            raise ValueError(f"Parameter {name} not found in source model")
 
 
 def zero_module(module):
