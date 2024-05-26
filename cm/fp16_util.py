@@ -86,7 +86,10 @@ def unflatten_master_params(param_group, master_param):
 
 
 def get_param_groups_and_shapes(named_model_params):
+    print("enter get_param_gr_and_shape")
     named_model_params = list(named_model_params)
+    for i, param in enumerate(named_model_params):
+        print(i, param)
     scalar_vector_named_params = (
         [(n, p) for (n, p) in named_model_params if p.ndim <= 1],
         (-1),
@@ -95,6 +98,8 @@ def get_param_groups_and_shapes(named_model_params):
         [(n, p) for (n, p) in named_model_params if p.ndim > 1],
         (1, -1),
     )
+    print("exit get_param_gr_and_shape")
+
     return [scalar_vector_named_params, matrix_named_params]
 
 
