@@ -70,17 +70,20 @@ def update_ema(target_params, source_params, rate=0.99):
     print("============")
     print("source_param 0", source_params[0])
     print(f"leng of source_par[0]{len(source_params[0])}")
-
+    total_prod_source=0
+    for par in source_params:
+        total_prod_source += par.shape[0]*par.shape[1]
+    print("this is total source param", total_prod_source)
     if len(target_params) != len(source_params):
         print(f"Parameter count mismatch: {len(target_params)} target parameters vs {len(source_params)} source parameters")
-    # if len(target_params) > len(source_params):
-    #     for i in range(len(source_params), len(target_params)):
-    #         print(f"Extra target parameter {i}: shape {target_params[i].shape}")
-    # else:
-    #     for i in range(len(target_params), len(source_params)):
-    #         print(f"Extra source parameter {i}: shape {source_params[i].shape}")
-    # while True:
-    #     pass
+    if len(target_params) > len(source_params):
+        for i in range(len(source_params), len(target_params)):
+            print(f"Extra target parameter {i}: shape {target_params[i].shape}")
+    else:
+        for i in range(len(target_params), len(source_params)):
+            print(f"Extra source parameter {i}: shape {source_params[i].shape}")
+    while True:
+        pass
 
     for i, (targ, src) in enumerate(zip(target_params, source_params)):
         
