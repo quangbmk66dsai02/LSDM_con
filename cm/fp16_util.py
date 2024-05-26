@@ -37,6 +37,10 @@ def make_master_params(param_groups_and_shapes):
     Copy model parameters into a (differently-shaped) list of full-precision
     parameters.
     """
+    print("entering make_master_param")
+    for i, (param_gr, shape) in enumerate(param_groups_and_shapes):
+        print(f"{i}, shape[i]")
+    _ = input()
     master_params = []
     for param_group, shape in param_groups_and_shapes:
         master_param = nn.Parameter(
