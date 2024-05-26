@@ -86,7 +86,7 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
 def unflatten_master_params(param_group, master_param):
     return _unflatten_dense_tensors(master_param, [param for (_, param) in param_group])
 
-
+# Now make a change in return to list of param
 def get_param_groups_and_shapes(named_model_params):
     print("enter get_param_gr_and_shape")
     named_model_params = list(named_model_params)
@@ -105,7 +105,8 @@ def get_param_groups_and_shapes(named_model_params):
     print(len(matrix_named_params[0]))
     print("exit get_param_gr_and_shape")
 
-    return [scalar_vector_named_params, matrix_named_params]
+    # return [scalar_vector_named_params, matrix_named_params]
+    return named_model_params
 
 
 def master_params_to_state_dict(
