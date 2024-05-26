@@ -76,13 +76,15 @@ def update_ema(target_params, source_params, rate=0.99):
     else:
         for i in range(len(target_params), len(source_params)):
             print(f"Extra source parameter {i}: shape {source_params[i].shape}")
-    while True:
-        pass
+    # while True:
+    #     pass
 
-    for targ, src in zip(target_params, source_params):
+    for i,targ, src in enumerate(zip(target_params, source_params)):
         
         if targ.shape != src.shape:
+            print("current at i = ", i)
             raise ValueError(f"Shape mismatch: target shape {targ.shape}, source shape {src.shape}")
+
         targ.detach().mul_(rate).add_(src, alpha=1 - rate)
 
 
