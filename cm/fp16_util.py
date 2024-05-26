@@ -89,7 +89,8 @@ def get_param_groups_and_shapes(named_model_params):
     print("enter get_param_gr_and_shape")
     named_model_params = list(named_model_params)
     for i, param in enumerate(named_model_params):
-        print(i, len(param))
+        n,p= param
+        print(i, n, p.shape)
     scalar_vector_named_params = (
         [(n, p) for (n, p) in named_model_params if p.ndim <= 1],
         (-1),
