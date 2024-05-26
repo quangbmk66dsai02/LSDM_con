@@ -50,6 +50,7 @@ def make_master_params(param_groups_and_shapes):
         )
         master_param.requires_grad = True
         master_params.append(master_param)
+    print("exit make_master param")
     return master_params
 
 
