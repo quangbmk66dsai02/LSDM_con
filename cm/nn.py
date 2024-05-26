@@ -71,6 +71,11 @@ def update_ema(target_params, source_params, rate=0.99):
     print("============")
     print("source_param 0", source_params[0])
     print(f"leng of source_par[0]{len(source_params[0])}")
+    total_target_params = sum(p.numel() for p in target_params)
+    total_source_params = sum(p.numel() for p in source_params)
+    
+    print(f"Total parameters in target_params: {total_target_params}")
+    print(f"Total parameters in source_params: {total_source_params}")
 
     if len(target_params) != len(source_params):
         print(f"Parameter count mismatch: {len(target_params)} target parameters vs {len(source_params)} source parameters")
