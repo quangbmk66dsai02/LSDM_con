@@ -98,6 +98,8 @@ def get_param_groups_and_shapes(named_model_params):
         [(n, p) for (n, p) in named_model_params if p.ndim > 1],
         (1, -1),
     )
+    print(len(scalar_vector_named_params))
+    print(len(matrix_named_params))
     print("exit get_param_gr_and_shape")
 
     return [scalar_vector_named_params, matrix_named_params]
