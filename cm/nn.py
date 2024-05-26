@@ -63,6 +63,8 @@ def update_ema(target_params, source_params, rate=0.99):
     :param source_params: the source parameter sequence.
     :param rate: the EMA rate (closer to 1 means slower).
     """
+    if len(target_params) == len(source_params):
+        print(f"Current len param is equal ={len(source_params)} source parameters")
     if len(target_params) != len(source_params):
         print(f"Parameter count mismatch: {len(target_params)} target parameters vs {len(source_params)} source parameters")
     if len(target_params) > len(source_params):
