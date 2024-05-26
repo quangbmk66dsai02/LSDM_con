@@ -79,7 +79,7 @@ def update_ema(target_params, source_params, rate=0.99):
     # while True:
     #     pass
 
-    for i,targ, src in enumerate(zip(target_params, source_params)):
+    for i, (targ, src) in enumerate(zip(target_params, source_params)):
         
         if targ.shape != src.shape:
             print("current at i = ", i)
