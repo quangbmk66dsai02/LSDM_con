@@ -65,9 +65,12 @@ def update_ema(target_params, source_params, rate=0.99):
     """
     if len(target_params) == len(source_params):
         print(f"Current len param is equal ={len(source_params)} source parameters")
-    print(target_params[0])
+    print("target param 0", target_params[0])
+    print(f"leng of tar_par[0]{len(target_params[0])}")
     print("============")
-    print(source_params[0])
+    print("source_param 0", source_params[0])
+    print(f"leng of source_par[0]{len(source_params[0])}")
+
     if len(target_params) != len(source_params):
         print(f"Parameter count mismatch: {len(target_params)} target parameters vs {len(source_params)} source parameters")
     if len(target_params) > len(source_params):
