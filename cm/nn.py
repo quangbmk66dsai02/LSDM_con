@@ -65,11 +65,7 @@ def update_ema(target_params, source_params, rate=0.99):
     """
     if len(target_params) == len(source_params):
         print(f"Current len param is equal ={len(source_params)} source parameters")
-    else:
-        total_prod_source=0
-        for par in source_params:
-            total_prod_source += par.shape[0]*par.shape[1]
-        print("this is total source param", total_prod_source)
+    
     print("target param 0", target_params[0])
     print(f"leng of tar_par[0]{len(target_params[0])}")
     print("============")
