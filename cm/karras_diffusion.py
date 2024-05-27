@@ -248,7 +248,7 @@ class KarrasDenoiser:
 
         terms = {}
         terms["loss"] = loss
-
+        print("done k_diff loss", terms["loss"])
         return terms
 
     def progdist_losses(
