@@ -471,9 +471,9 @@ class CMTrainLoop(TrainLoop):
             }
             last_batch = (i + self.microbatch) >= batch[3].shape[0]
             dev = dist_util.dev()
-            print ("this is dev")
-            print("this is micro length", len(micro))
-            print("this is self.micro", self.microbatch)
+            # print ("this is dev")
+            # print("this is micro length", len(micro))
+            # print("this is self.micro", self.microbatch)
 
             t, weights = self.schedule_sampler.sample(micro[3].shape[0], dev)
 
