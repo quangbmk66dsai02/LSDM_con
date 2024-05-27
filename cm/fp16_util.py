@@ -82,6 +82,8 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
     """
     # Without copying to a list, if a generator is passed, this will
     # silently not copy any parameters.
+    print ('enter master_param_to_model_params')
+
     for master_param, (param_group, _) in zip(master_params, param_groups_and_shapes):
         for (_, param), unflat_master_param in zip(
             param_group, unflatten_master_params(param_group, master_param.view(-1))
