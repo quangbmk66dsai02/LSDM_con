@@ -51,7 +51,7 @@ def make_master_params(param_groups_and_shapes):
         print("this is shape", param.shape)
         master_param = nn.Parameter(
             _flatten_dense_tensors(
-                [param.detach().float() for (_, param) in param]
+                [param.detach().float() for (param) in param]
             ).view(param.shape)
         )
         master_param.requires_grad = True
