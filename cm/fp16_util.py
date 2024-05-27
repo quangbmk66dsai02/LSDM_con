@@ -60,7 +60,6 @@ def make_master_params(param_groups_and_shapes):
         cnt += 1
         
     print("exit make_master param")
-    _ = input()
     return master_params
 
 
