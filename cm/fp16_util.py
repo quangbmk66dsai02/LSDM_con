@@ -45,21 +45,21 @@ def make_master_params(param_groups_and_shapes):
         
         print(cnt, n, param.shape)
         cnt += 1
-    while True:
-        pass
-    for param_group, shape in param_groups_and_shapes:
+
+    for n, param in param_groups_and_shapes:
         print(cnt)
-        print("this is len param",len(param_group))
-        print("this is shape", shape)
+        print("this is shape", param.shape)
         master_param = nn.Parameter(
             _flatten_dense_tensors(
-                [param.detach().float() for (_, param) in param_group]
-            ).view(shape)
+                [param.detach().float() for (_, param) in param]
+            ).view(param.shape)
         )
         master_param.requires_grad = True
         master_params.append(master_param)
         cnt += 1
+    
     print("exit make_master param")
+    _ = input()
     return master_params
 
 
