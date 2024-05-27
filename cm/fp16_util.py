@@ -49,8 +49,6 @@ def make_master_params(param_groups_and_shapes):
     cnt = 0
 
     for n, param in param_groups_and_shapes:
-        print(cnt)
-        print("this is shape", param.shape)
         if param.dim() == 0:  # Check if the tensor is 0-dimensional
             master_param = nn.Parameter(param.detach().float())
         else:
