@@ -41,6 +41,12 @@ def make_master_params(param_groups_and_shapes):
 
     master_params = []
     cnt = 0
+    for n,param in param_groups_and_shapes:
+        
+        print(cnt, n, param.shape)
+        cnt += 1
+    while True:
+        pass
     for param_group, shape in param_groups_and_shapes:
         print(cnt)
         print("this is len param",len(param_group))
