@@ -44,8 +44,9 @@ def make_master_params(param_groups_and_shapes):
     for n,param in param_groups_and_shapes:
         
         print(cnt, n, param.shape)
-        cnt += 1
+        cnt +=1
 
+    cnt = 0
     for n, param in param_groups_and_shapes:
         print(cnt)
         print("this is shape", param.shape)
