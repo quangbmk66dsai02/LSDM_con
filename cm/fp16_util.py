@@ -42,8 +42,6 @@ def make_master_params(param_groups_and_shapes):
     master_params = []
     cnt = 0
     for n,param in param_groups_and_shapes:
-        
-        print(cnt, n, param.shape)
         cnt +=1
 
     cnt = 0
@@ -101,7 +99,6 @@ def get_param_groups_and_shapes(named_model_params):
     named_model_params = list(named_model_params)
     for i, param in enumerate(named_model_params):
         n,p= param
-        print(i, n, p.shape)
     scalar_vector_named_params = (
         [(n, p) for (n, p) in named_model_params if p.ndim <= 1],
         (-1),
