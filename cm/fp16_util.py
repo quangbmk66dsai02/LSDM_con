@@ -47,18 +47,22 @@ def make_master_params(param_groups_and_shapes):
         cnt +=1
 
     cnt = 0
+
     for n, param in param_groups_and_shapes:
         print(cnt)
         print("this is shape", param.shape)
-        master_param = nn.Parameter(
-            _flatten_dense_tensors(
-                [param.detach().float() for (param) in param]
-            ).view(param.shape)
-        )
+        if param.dim() == 0:  # Check if the tensor is 0-dimensional
+            master_param = nn.Parameter(param.detach().float())
+        else:
+            master_param = nn.Parameter(
+                _flatten_dense_tensors(
+                    [param.detach().float() for param in param]
+                ).view(param.shape)
+            )
         master_param.requires_grad = True
         master_params.append(master_param)
         cnt += 1
-    
+        
     print("exit make_master param")
     _ = input()
     return master_params
