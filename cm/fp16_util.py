@@ -81,15 +81,17 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
     Copy the master parameter data back into the model parameters.
     """
     print('enter master_param_to_model_params')
-
+    cnt = 0
     for master_param, (name, param) in zip(master_params, param_groups_and_shapes):
-        print(name, param.shape)
+        print(cnt, name, param.shape)
         print(type(param))
         if param.dim() == 0:
             param.data.copy_(master_param.data)
         else:
             unflat_master_params = unflatten_master_params(param, master_param.view(-1))
             param.data.copy_(unflat_master_params[0])
+        cnt += 1
+    print ("exit master_params update =============")
 
 def unflatten_master_params(param, master_param):
     """

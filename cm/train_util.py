@@ -359,13 +359,15 @@ class CMTrainLoop(TrainLoop):
 # Under fixing that batch = new 6 items, cond = {}
     def run_loop(self):
         print ("enter training loop")
-
+        loop_cnt = 0
         saved = False
         while (
             not self.lr_anneal_steps
             or self.step < self.lr_anneal_steps
             or self.global_step < self.total_training_steps
         ):
+            print("Enter run_loop cnt", loop_cnt)
+            loop_cnt += 1
             mask, given_objs, given_cats, target_obj, target_cat, y = next(self.data)
             batch = mask, given_objs, given_cats, target_obj, target_cat, y
             cond = {}
