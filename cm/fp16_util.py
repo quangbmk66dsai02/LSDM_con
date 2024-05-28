@@ -31,7 +31,7 @@ def convert_module_to_f32(l):
         if l.bias is not None:
             l.bias.data = l.bias.data.float()
 
-
+# Adapted to new get_param_groups_and_shape
 def make_master_params(param_groups_and_shapes):
     """
     Copy model parameters into a (differently-shaped) list of full-precision
@@ -85,6 +85,7 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
     print ('enter master_param_to_model_params')
 
     for master_param, (param_group, _) in zip(master_params, param_groups_and_shapes):
+        print(param_group, _.shape)
         for (_, param), unflat_master_param in zip(
             param_group, unflatten_master_params(param_group, master_param.view(-1))
         ):
@@ -94,7 +95,7 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
 def unflatten_master_params(param_group, master_param):
     return _unflatten_dense_tensors(master_param, [param for (_, param) in param_group])
 
-# Now make a change in return to list of param
+# Now make a change in return to list of param to only include (name,param)
 def get_param_groups_and_shapes(named_model_params):
     print("enter get_param_gr_and_shape")
     named_model_params = list(named_model_params)
