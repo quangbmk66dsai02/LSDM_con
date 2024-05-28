@@ -75,7 +75,7 @@ def model_grads_to_master_grads(param_groups_and_shapes, master_params):
             [param_grad_or_zeros(param) for (_, param) in param_group]
         ).view(shape)
 
-
+# Adapted to param_groups_and_shapes change
 def master_params_to_model_params(param_groups_and_shapes, master_params):
     """
     Copy the master parameter data back into the model parameters.
@@ -84,8 +84,9 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
     # silently not copy any parameters.
     print ('enter master_param_to_model_params')
 
-    for master_param, (param_group, _) in zip(master_params, param_groups_and_shapes):
-        print(param_group, _.shape)
+    for master_param, (name, param) in zip(master_params, param_groups_and_shapes):
+        print(name, param.shape)
+        print(type(param))
         for (_, param), unflat_master_param in zip(
             param_group, unflatten_master_params(param_group, master_param.view(-1))
         ):
