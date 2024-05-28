@@ -128,6 +128,8 @@ class SceneDiffusionModel(nn.Module):
         # Setup save guiding points for visualization purpose
         self.saved_guiding_points = None
 
+#Slightly modify return value to  return only x, may fix following problem cause by torch distributed
+# Expected to have finished reduction in the prior iteration before starting a new one. 
     def forward(self, x, mask, timesteps, given_objs, given_cats, y=None, force_mask=False):
         """
         x: noisy signal - torch.Tensor.shape([bs, seq_len, dims, cat]). E.g, 1, 256, 655, 8
@@ -215,7 +217,8 @@ class SceneDiffusionModel(nn.Module):
         pcd_out = self.input_process(pcd_out, emb)
         pcd_out = self.output_process(pcd_out)
         self.saved_guiding_points = pcd_out
-        return out_cat, x
+        # return out_cat, x
+        return x
 
     def _set_up_modality(self):
         assert self.modality in ['text', 'audio', None]

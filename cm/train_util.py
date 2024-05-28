@@ -460,7 +460,6 @@ class CMTrainLoop(TrainLoop):
 # Currently undermodifying into batch => batch[3] (targer obj)
     def forward_backward(self, batch, cond):
 
-        print("this is batch", batch)
         print("this target obj shape", batch[3].shape)
         self.mp_trainer.zero_grad()
         for i in range(0, batch[3].shape[0], self.microbatch):
