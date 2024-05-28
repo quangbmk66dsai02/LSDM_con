@@ -80,21 +80,26 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
     """
     Copy the master parameter data back into the model parameters.
     """
-    # Without copying to a list, if a generator is passed, this will
-    # silently not copy any parameters.
-    print ('enter master_param_to_model_params')
+    print('enter master_param_to_model_params')
 
     for master_param, (name, param) in zip(master_params, param_groups_and_shapes):
         print(name, param.shape)
         print(type(param))
-        for (_, param), unflat_master_param in zip(
-            param_group, unflatten_master_params(param_group, master_param.view(-1))
-        ):
-            param.detach().copy_(unflat_master_param)
+        if param.dim() == 0:
+            param.data.copy_(master_param.data)
+        else:
+            unflat_master_params = unflatten_master_params(param, master_param.view(-1))
+            param.data.copy_(unflat_master_params[0])
 
-
-def unflatten_master_params(param_group, master_param):
-    return _unflatten_dense_tensors(master_param, [param for (_, param) in param_group])
+def unflatten_master_params(param, master_param):
+    """
+    Unflatten master parameters into the original parameter shapes.
+    """
+    if param.dim() == 0:
+        return [master_param]
+    else:
+        return _unflatten_dense_tensors(master_param, [param])
+    
 
 # Now make a change in return to list of param to only include (name,param)
 def get_param_groups_and_shapes(named_model_params):
