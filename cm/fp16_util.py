@@ -83,7 +83,7 @@ def master_params_to_model_params(param_groups_and_shapes, master_params):
     print('enter master_param_to_model_params')
     cnt = 0
     for master_param, (name, param) in zip(master_params, param_groups_and_shapes):
-        print(cnt, name, param.shape)
+        # print(cnt, name, param.shape)
         if param.dim() == 0:
             param.data.copy_(master_param.data)
         else:

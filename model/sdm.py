@@ -128,7 +128,8 @@ class SceneDiffusionModel(nn.Module):
         # Setup save guiding points for visualization purpose
         self.saved_guiding_points = None
 
-#Slightly modify return value to  return only x, may fix following problem cause by torch distributed
+# Slightly modify return value to  return only x, may fix following problem cause by torch distributed
+# Slightly modify to remove force_mask from input, currently force_mask is not used in inplementation
 # Expected to have finished reduction in the prior iteration before starting a new one. 
     def forward(self, x, mask, timesteps, given_objs, given_cats, y=None, force_mask=False):
         """
