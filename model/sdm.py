@@ -131,7 +131,7 @@ class SceneDiffusionModel(nn.Module):
 # Slightly modify return value to  return only x, may fix following problem cause by torch distributed
 # Slightly modify to remove force_mask from input, currently force_mask is not used in inplementation
 # Expected to have finished reduction in the prior iteration before starting a new one. 
-    def forward(self, x, mask, timesteps, given_objs, given_cats, y=None, force_mask=False):
+    def forward(self, x, mask, timesteps, given_objs, given_cats, y=None):
         """
         x: noisy signal - torch.Tensor.shape([bs, seq_len, dims, cat]). E.g, 1, 256, 655, 8
         vertices: torch.Tensor.shape([bs, seq_len, dim, 3])
