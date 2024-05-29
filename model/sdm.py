@@ -182,8 +182,8 @@ class SceneDiffusionModel(nn.Module):
         # Pass through attention layer to attain attention matrix
         attn_mask = mask.unsqueeze(1).clone().detach()
         attn_mask = attn_mask.repeat(self.n_head, 1, 1)
-        # attn_output, attn_output_weights = self.attn_layer(enc_text, emb_cat, pcd_out, attn_mask=attn_mask)
-        _, attn_output_weights = self.attn_layer(enc_text, emb_cat, pcd_out, attn_mask=attn_mask)
+
+        attn_output, attn_output_weights = self.attn_layer(enc_text, emb_cat, pcd_out, attn_mask=attn_mask)
 
         # Pass through translation layer
         enc_text = enc_text.repeat(1, num_obj, 1)
@@ -210,7 +210,8 @@ class SceneDiffusionModel(nn.Module):
         # Final embedding features
         # emb = torch.cat((emb, pcd_out), dim=-1)
         emb = self.combine_extraction(emb)
-
+        # Adding attn_output to x
+        x += 0 * attn_output
         # Reconstruct features
         x = self.input_process(x, emb)
         x = self.output_process(x)
