@@ -5,6 +5,7 @@ Train a diffusion model on images.
 import argparse
 
 from cm import dist_util, logger
+from cm import logger
 from cm.image_datasets import load_data
 from cm.resample import create_named_schedule_sampler
 from cm.script_util import (
@@ -59,7 +60,7 @@ def main():
 
     # model_and_diffusion_kwargs["distillation"] = distillation
     model, diffusion = create_model_and_diffusion(datatype)
-    # model.to(dist_util.dev())
+    model.to(dist_util.dev())
     # model.train()
     # if args.use_fp16:
     #     model.convert_to_fp16()
