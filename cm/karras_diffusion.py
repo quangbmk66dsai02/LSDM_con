@@ -125,19 +125,20 @@ class KarrasDenoiser:
 
         if model_kwargs is None:
             model_kwargs = {}
+        print ("model_kwargs: ", model_kwargs)
         if noise is None:
             noise = th.randn_like(target_obj)
 
         dims = target_obj.ndim
 
         def denoise_fn(x, mask, given_objs, given_cats, y, t):
-            return self.denoise(model, x, mask=mask, given_objs= given_objs, given_cats= given_cats,y =y, sigmas=t, **model_kwargs)[1]
+            return self.denoise(model, x, mask=mask, given_objs= given_objs, given_cats= given_cats,y =y, sigmas=t)[1]
 
         if target_model:
             
             @th.no_grad()
             def target_denoise_fn(x, t):
-                return self.denoise(model, x, mask=mask, given_objs= given_objs, given_cats= given_cats,y =y, sigmas=t, **model_kwargs)[1]
+                return self.denoise(model, x, mask=mask, given_objs= given_objs, given_cats= given_cats,y =y, sigmas=t)[1]
 
         else:
             raise NotImplementedError("Must have a target model")
@@ -146,7 +147,7 @@ class KarrasDenoiser:
 
             @th.no_grad()
             def teacher_denoise_fn(x, givent):
-                return teacher_diffusion.denoise(teacher_model, x, t, **model_kwargs)[1]
+                return teacher_diffusion.denoise(teacher_model, x, t)[1]
 
         @th.no_grad()
         def heun_solver(samples, t, next_t, x0):
@@ -344,7 +345,7 @@ class KarrasDenoiser:
 
         return terms
 
-    def denoise(self, model, x_t, mask, given_objs, given_cats, y, sigmas, **model_kwargs):
+    def denoise(self, model, x_t, mask, given_objs, given_cats, y, sigmas):
         print("enter denoise")
         import torch.distributed as dist
 
@@ -364,7 +365,7 @@ class KarrasDenoiser:
         # model(x, mask, self._scale_timesteps(t), given_objs, given_cats, y)
         print("this is rescaled t long", rescaled_t_long)
 
-        model_output = model(c_in * x_t, mask, rescaled_t_long, given_objs, given_cats, y, **model_kwargs)
+        model_output = model(c_in * x_t, mask, rescaled_t_long, given_objs, given_cats, y)
         c_skip = c_skip.to("cuda")
         c_out = c_out.to("cuda")
         x_t = x_t.to("cuda")
