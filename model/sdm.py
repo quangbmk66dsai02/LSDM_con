@@ -183,7 +183,7 @@ class SceneDiffusionModel(nn.Module):
         attn_mask = mask.unsqueeze(1).clone().detach()
         attn_mask = attn_mask.repeat(self.n_head, 1, 1)
         # attn_output, attn_output_weights = self.attn_layer(enc_text, emb_cat, pcd_out, attn_mask=attn_mask)
-        attn_output_weights = self.attn_layer(enc_text, emb_cat, pcd_out, attn_mask=attn_mask)[1]
+        _, attn_output_weights = self.attn_layer(enc_text, emb_cat, pcd_out, attn_mask=attn_mask)
 
         # Pass through translation layer
         enc_text = enc_text.repeat(1, num_obj, 1)
