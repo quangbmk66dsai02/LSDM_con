@@ -65,15 +65,15 @@ class SceneDiffusionModel(nn.Module):
         ).to(self.device)
 
         # Setup inference for categorical
-        self.predict_cat = nn.Sequential(
-            nn.Linear(self.latent_dim, self.latent_dim//2),
-            nn.GELU(),
-            nn.Linear(self.latent_dim//2, self.latent_dim//4),
-            nn.GELU(),
-            nn.Linear(self.latent_dim//4, max_cats),
-            nn.GELU(),
-            nn.Softmax(dim=2),
-        ).to(self.device)
+        # self.predict_cat = nn.Sequential(
+        #     nn.Linear(self.latent_dim, self.latent_dim//2),
+        #     nn.GELU(),
+        #     nn.Linear(self.latent_dim//2, self.latent_dim//4),
+        #     nn.GELU(),
+        #     nn.Linear(self.latent_dim//4, max_cats),
+        #     nn.GELU(),
+        #     nn.Softmax(dim=2),
+        # ).to(self.device)
         
         # Setup attention layer
         self.attn_layer = MultiheadAttention(embed_dim=self.latent_dim, num_heads=n_head, kdim=cat_emb, vdim=pcd_points*pcd_dim, batch_first=True).to(self.device)
