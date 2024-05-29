@@ -211,6 +211,8 @@ class SceneDiffusionModel(nn.Module):
         # emb = torch.cat((emb, pcd_out), dim=-1)
         emb = self.combine_extraction(emb)
         # Adding attn_output to x
+        print("x_shape", x.shape)
+        print("attn_shape", attn_output.shape)
         x += 0 * attn_output
         # Reconstruct features
         x = self.input_process(x, emb)
