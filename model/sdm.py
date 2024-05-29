@@ -14,7 +14,7 @@ from model.p2rnet.stgcn import STGCN
 from posa.posa_models import Decoder as POSA_Decoder
 
 
-
+# Currently disable self.saved_cat in model and forward function (2 places), this attribute may cause torch dist error
 class SceneDiffusionModel(nn.Module):
     def __init__(self, seg_len=256, modality='text', clip_version='ViT-B/32', clip_dim=768, dropout=0.1, n_layer=6, n_head=8, f_vert=64, dim_ff=512,
                  cat_emb=32, mesh_ds_dir="data/mesh_ds", posa_path=None, latent_dim=128, cond_mask_prob=1.0, device=0, vert_dims=655, obj_cat=8, 
@@ -48,7 +48,7 @@ class SceneDiffusionModel(nn.Module):
         self.embed_timestep = TimestepEmbedder(self.latent_dim, self.sequence_pos_encoder, device=self.device)
 
         # Setup embedding layer for modality
-        self.saved_cat = None
+        # self.saved_cat = None
         self.embed_text = nn.Sequential(
             nn.Linear(self.clip_dim, self.clip_dim//2),
             nn.GELU(),
@@ -143,7 +143,7 @@ class SceneDiffusionModel(nn.Module):
         # Embed features from time
         emb_ts = self.embed_timestep(timesteps)
         emb_ts = emb_ts.permute(1, 0, 2)
-
+        print("disable self.saved_cat")
         # Embed features from modality
         if self.modality == 'text':
             if self.text_encoder_type == "CLIP":
@@ -157,8 +157,8 @@ class SceneDiffusionModel(nn.Module):
             enc_text = enc_text.unsqueeze(1)
 
         # Predict output categorical
-        out_cat = self.predict_cat(enc_text.clone().detach())
-        self.saved_cat = out_cat
+        # out_cat = self.predict_cat(enc_text.clone().detach())
+        # self.saved_cat = out_cat
 
         # Embed information from categories
         emb_cat = self.embed_cat(given_cats)
