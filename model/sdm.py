@@ -211,9 +211,13 @@ class SceneDiffusionModel(nn.Module):
         # emb = torch.cat((emb, pcd_out), dim=-1)
         emb = self.combine_extraction(emb)
         # Adding attn_output to x
+        average_attn_output = torch.mean(attn_output, dim=-1, keepdim=True)
+
+        # Broadcast the average to match the shape of x
+        broadcasted_attn_output = average_attn_output.expand(1, 1024, 3)
         print("x_shape", x.shape)
-        print("attn_shape", attn_output.shape)
-        x += 0 * attn_output
+        print("broadcast_attn_shape", broadcasted_attn_output.shape)
+        x += 0 * broadcasted_attn_output
         # Reconstruct features
         x = self.input_process(x, emb)
         x = self.output_process(x)
