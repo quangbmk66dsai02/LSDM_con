@@ -74,6 +74,7 @@ def update_ema(target_params, source_params, rate=0.99):
     total_target_params = sum(p.numel() for p in target_params)
     total_source_params = sum(p.numel() for p in source_params)
     
+    
     print(f"Total parameters in target_params: {total_target_params}")
     print(f"Total parameters in source_params: {total_source_params}")
 
@@ -85,8 +86,8 @@ def update_ema(target_params, source_params, rate=0.99):
     # else:
     #     for i in range(len(target_params), len(source_params)):
     #         print(f"Extra source parameter {i}: shape {source_params[i].shape}")
-    print("this is source param 0 \n", source_params[0])
-    print("this is target param 0 \n",target_params[0])
+    print("this is source param -1 \n", source_params[-1])
+    print("this is target param -1 \n",target_params[-1])
     for i, (targ, src) in enumerate(zip(target_params, source_params)):
         
         if targ.shape != src.shape:
@@ -94,7 +95,7 @@ def update_ema(target_params, source_params, rate=0.99):
             raise ValueError(f"Shape mismatch: target shape {targ.shape}, source shape {src.shape}")
 
         targ.detach().mul_(rate).add_(src, alpha=1 - rate)
-    print("this is target param after update \n", target_params[0])
+    print("this is target param after update \n", target_params[-1])
     print("exit update_ema")
 
 
