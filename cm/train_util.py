@@ -358,7 +358,7 @@ class CMTrainLoop(TrainLoop):
 
 # Under fixing that batch = new 6 items, cond = {}
     def run_loop(self):
-        print ("enter training loop")
+        print ("Enter training loop")
         loop_cnt = 0
         saved = False
         while (
@@ -394,6 +394,9 @@ class CMTrainLoop(TrainLoop):
         # Save the last checkpoint if it wasn't already saved.
         if not saved:
             self.save()
+        print("Done trainloop", loop_cnt)
+        print("============================================================================ \n \n \n")
+
 
     def run_step(self, batch, cond):
         self.forward_backward(batch, cond)
