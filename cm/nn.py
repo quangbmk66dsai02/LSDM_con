@@ -63,6 +63,7 @@ def update_ema(target_params, source_params, rate=0.99):
     :param source_params: the source parameter sequence.
     :param rate: the EMA rate (closer to 1 means slower).
     """
+    print("          Enter EMA update in nn.py (for both self EMA and self target EMA) \n")
     if len(target_params) == len(source_params):
         print(f"Current len param is equal ={len(source_params)} source parameters")
     
