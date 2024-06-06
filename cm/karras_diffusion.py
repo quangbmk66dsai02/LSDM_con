@@ -170,7 +170,7 @@ class KarrasDenoiser:
 
         if target_model:
             
-            @th.no_grad()
+            # @th.no_grad()
             def target_denoise_fn(x, t):
                 return self.denoise(model, x, mask=mask, given_objs= given_objs, given_cats= given_cats,y =y, sigmas=t)[1]
 
