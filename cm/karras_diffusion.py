@@ -81,7 +81,7 @@ class KarrasDenoiser:
         # self.loss_norm = loss_norm
         # if loss_norm == "lpips":
         #     self.lpips_loss = LPIPS(replace_pooling=True, reduction="none")
-        self.loss_norm = "l2"
+        self.loss_norm = "cfd"
         self.rho = rho
         self.num_timesteps = 40
 
