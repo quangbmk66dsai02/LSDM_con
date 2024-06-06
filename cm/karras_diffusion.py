@@ -81,7 +81,7 @@ class KarrasDenoiser:
         # self.loss_norm = loss_norm
         # if loss_norm == "lpips":
         #     self.lpips_loss = LPIPS(replace_pooling=True, reduction="none")
-        self.loss_norm = "cfd"
+        self.loss_norm = "l2"
         self.rho = rho
         self.num_timesteps = 40
 
@@ -251,7 +251,7 @@ class KarrasDenoiser:
             loss = chamfer_distance(distiller, distiller_target)*weights
         elif self.loss_norm == "l2":
             diffs = (distiller - distiller_target) ** 2
-            print("Device check")
+            print("Using L2")
             print(f"{diffs.device}, {weights.device}")
             weights = weights.to("cuda")
             loss = mean_flat(diffs) * weights
