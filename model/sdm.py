@@ -143,7 +143,7 @@ class SceneDiffusionModel(nn.Module):
         # Embed features from time
         emb_ts = self.embed_timestep(timesteps)
         emb_ts = emb_ts.permute(1, 0, 2)
-        print("disable self.saved_cat")
+        # print("disable self.saved_cat")
         # Embed features from modality
         if self.modality == 'text':
             if self.text_encoder_type == "CLIP":

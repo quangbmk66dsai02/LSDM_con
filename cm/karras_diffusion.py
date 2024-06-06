@@ -30,6 +30,37 @@ def get_weightings(weight_schedule, snrs, sigma_data):
         raise NotImplementedError()
     return weightings
 
+def chamfer_distance(S1, S2):
+    """
+    Compute the Chamfer distance between two sets of 3D points.
+    
+    Parameters:
+    S1: torch.Tensor of shape (1, 1024, 3)
+    S2: torch.Tensor of shape (1, 1024, 3)
+    
+    Returns:
+    float: Chamfer distance
+    """
+    # Expand the dimensions of S1 and S2 for broadcasting
+    S1_expand = S1.unsqueeze(2)  # (1, 1024, 1, 3)
+    S2_expand = S2.unsqueeze(1)  # (1, 1, 1024, 3)
+    # print("this is expanding S1", S1)
+    # print("this is expanding S2", S2)
+
+    # Compute pairwise distances between points in S1 and S2
+    dists = th.norm(S1_expand - S2_expand, dim=-1)  # (1, 1024, 1024)
+    # print("this is subtract operation result", (S1_expand - S2_expand))
+    # print("this is dist", dists)
+    # For each point in S1, find the nearest point in S2
+    min_dist_S1_to_S2, _ = th.min(dists, dim=2)  # (1, 1024)
+    
+    # For each point in S2, find the nearest point in S1
+    min_dist_S2_to_S1, _ = th.min(dists, dim=1)  # (1, 1024)
+    
+    # Sum of minimum distances
+    chamfer_dist = min_dist_S1_to_S2.mean() + min_dist_S2_to_S1.mean()
+    
+    return chamfer_dist.item()
 
 class KarrasDenoiser:
     def __init__(
@@ -50,7 +81,7 @@ class KarrasDenoiser:
         # self.loss_norm = loss_norm
         # if loss_norm == "lpips":
         #     self.lpips_loss = LPIPS(replace_pooling=True, reduction="none")
-        self.loss_norm = "l2"
+        self.loss_norm = "cfd"
         self.rho = rho
         self.num_timesteps = 40
 
@@ -214,6 +245,8 @@ class KarrasDenoiser:
         if self.loss_norm == "l1":
             diffs = th.abs(distiller - distiller_target)
             loss = mean_flat(diffs) * weights
+        elif self.loss_norm == "cfd":
+            loss = chamfer_distance(distiller, distiller_target)*weights
         elif self.loss_norm == "l2":
             diffs = (distiller - distiller_target) ** 2
             print("Device check")
