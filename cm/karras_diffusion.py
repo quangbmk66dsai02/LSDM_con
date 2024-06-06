@@ -44,6 +44,8 @@ def chamfer_distance(S1, S2):
     # Expand the dimensions of S1 and S2 for broadcasting
     S1_expand = S1.unsqueeze(2)  # (1, 1024, 1, 3)
     S2_expand = S2.unsqueeze(1)  # (1, 1, 1024, 3)
+    print(f'S1.requires_grad: {S1.requires_grad}')
+    print(f'S2.requires_grad: {S2.requires_grad}')
     # print("this is expanding S1", S1)
     # print("this is expanding S2", S2)
 
@@ -59,7 +61,8 @@ def chamfer_distance(S1, S2):
     
     # Sum of minimum distances
     chamfer_dist = min_dist_S1_to_S2.mean() + min_dist_S2_to_S1.mean()
-    
+    print(f'S1.requires_grad: {S1.requires_grad}')
+    print(f'S2.requires_grad: {S2.requires_grad}')
     return chamfer_dist.item()
 
 class KarrasDenoiser:
