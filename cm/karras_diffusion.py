@@ -246,6 +246,8 @@ class KarrasDenoiser:
             diffs = th.abs(distiller - distiller_target)
             loss = mean_flat(diffs) * weights
         elif self.loss_norm == "cfd":
+            print("Using CFD")
+            weights = weights.to("cuda")
             loss = chamfer_distance(distiller, distiller_target)*weights
         elif self.loss_norm == "l2":
             diffs = (distiller - distiller_target) ** 2
