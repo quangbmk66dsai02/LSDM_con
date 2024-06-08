@@ -406,7 +406,7 @@ class KarrasDenoiser:
         # model(x, mask, self._scale_timesteps(t), given_objs, given_cats, y)
         print("this is rescaled t long", rescaled_t_long)
 
-        model_output = model(c_in * x_t, mask, rescaled_t_long, given_objs, given_cats, y)
+        model_output = model(c_in * x_t, mask, rescaled_t, given_objs, given_cats, y)
         c_skip = c_skip.to("cuda")
         c_out = c_out.to("cuda")
         x_t = x_t.to("cuda")
