@@ -18,6 +18,8 @@ class TimestepEmbedder(nn.Module):
         ).to(device)
 
     def forward(self, timesteps):
+        print(self.sequence_pos_encoder.pe[timesteps])
+        print("done pos_encoding")
         return self.time_embed(self.sequence_pos_encoder.pe[timesteps]).permute(1, 0, 2)
 
 
