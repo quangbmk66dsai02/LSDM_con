@@ -19,7 +19,7 @@ class TimestepEmbedder(nn.Module):
 
     def forward(self, timesteps):
         print("this is the fwd of TE", timesteps)
-        print("this is the pe \n", self.sequence_pos_encoder.pe)
+        print("this is the pe", len(self.sequence_pos_encoder.pe), "\n", self.sequence_pos_encoder.pe)
         print(self.sequence_pos_encoder.pe[timesteps])
         print("done pos_encoding")
         return self.time_embed(self.sequence_pos_encoder.pe[timesteps]).permute(1, 0, 2)
