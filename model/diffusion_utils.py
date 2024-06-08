@@ -40,6 +40,7 @@ class PositionalEncoding(nn.Module):
 
     def forward(self, x):
         # not used in the final model
+        print("this is the forward of PE (called in TE)", x)
         x = x + self.pe[:x.shape[0], :]
         return self.dropout(x)
 
