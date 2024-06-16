@@ -2,13 +2,41 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import math
+
+def timestep_embedding(timesteps, dim, max_period=10000):
+    """
+    Create sinusoidal timestep embeddings.
+
+    :param timesteps: a 1-D Tensor of N indices, one per batch element.
+                      These may be fractional.
+    :param dim: the dimension of the output.
+    :param max_period: controls the minimum frequency of the embeddings.
+    :return: an [N x dim] Tensor of positional embeddings.
+    """
+    # Initialize the positional encodings tensor
+    pe = torch.zeros(timesteps.size(0), dim, device=timesteps.device)
+    
+    # Create a tensor of positions (0, 1, 2, ..., timesteps.size(0)-1)
+    position = timesteps.unsqueeze(1).float()
+
+    # Create a tensor of scaling factors
+    div_term = torch.exp(torch.arange(0, dim, 2, dtype=torch.float, device=timesteps.device) * (-math.log(max_period) / dim))
+
+    # Apply sine to even indices
+    pe[:, 0::2] = torch.sin(position * div_term)
+
+    # Apply cosine to odd indices
+    pe[:, 1::2] = torch.cos(position * div_term)
+
+    return pe
 
 
 class TimestepEmbedder(nn.Module):
-    def __init__(self, latent_dim, sequence_pos_encoder, device=None):
+    def __init__(self, latent_dim, max_period=10000, device=None):
         super().__init__()
         self.latent_dim = latent_dim
-        self.sequence_pos_encoder = sequence_pos_encoder
+        self.max_period = max_period
 
         time_embed_dim = self.latent_dim
         self.time_embed = nn.Sequential(
@@ -17,12 +45,28 @@ class TimestepEmbedder(nn.Module):
             nn.Linear(time_embed_dim, time_embed_dim),
         ).to(device)
 
-    def forward(self, timesteps):
-        print("this is the fwd of TE", timesteps)
-        print("this is the pe of len", len(self.sequence_pos_encoder.pe), "\n", self.sequence_pos_encoder.pe)
-        print(self.sequence_pos_encoder.pe[timesteps])
-        print("done pos_encoding")
-        return self.time_embed(self.sequence_pos_encoder.pe[timesteps]).permute(1, 0, 2)
+    def forward(self, timesteps):      
+        encodings = timestep_embedding(timesteps, self.latent_dim, self.max_period)
+        encodings = encodings.unsqueeze(0)
+        return self.time_embed(encodings).permute(1,0,2)
+
+# class TimestepEmbedder(nn.Module):
+#     def __init__(self, latent_dim, sequence_pos_encoder, device=None):
+#         super().__init__()
+#         self.latent_dim = latent_dim
+#         self.sequence_pos_encoder = sequence_pos_encoder
+
+#         time_embed_dim = self.latent_dim
+#         self.time_embed = nn.Sequential(
+#             nn.Linear(self.latent_dim, time_embed_dim),
+#             nn.SiLU(),
+#             nn.Linear(time_embed_dim, time_embed_dim),
+#         ).to(device)
+
+#     def forward(self, timesteps):
+#         print("this is the fwd of TE", timesteps)
+#         print("done pos_encoding")
+#         return self.time_embed(self.sequence_pos_encoder.pe[timesteps]).permute(1, 0, 2)
 
 
 class PositionalEncoding(nn.Module):
@@ -41,7 +85,7 @@ class PositionalEncoding(nn.Module):
         self.register_buffer('pe', pe)
 
     def forward(self, x):
-        # not used in the final model
+        # not used in the final model - checked with the original repo, it's indeed not used.
         print("this is the forward of PE (called in TE)", x)
         x = x + self.pe[:x.shape[0], :]
         return self.dropout(x)

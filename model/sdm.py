@@ -44,8 +44,8 @@ class SceneDiffusionModel(nn.Module):
         self._set_up_modality()
 
         # Setup timestep embedding layer
-        self.sequence_pos_encoder = PositionalEncoding(self.latent_dim, self.dropout, device=self.device)
-        self.embed_timestep = TimestepEmbedder(self.latent_dim, self.sequence_pos_encoder, device=self.device)
+        # self.sequence_pos_encoder = PositionalEncoding(self.latent_dim, self.dropout, device=self.device)
+        self.embed_timestep = TimestepEmbedder(self.latent_dim, max_period=10000, device=self.device)
 
         # Setup embedding layer for modality
         # self.saved_cat = None
